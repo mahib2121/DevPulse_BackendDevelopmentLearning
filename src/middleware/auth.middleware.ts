@@ -1,42 +1,25 @@
 import type { Request, Response, NextFunction } from "express";
 import { verifyToken } from "../config/jwt";
 
-export interface AuthRequest extends Request {
-  user?: {
-    id: number;
-    name: string;
-    role: string;
-  };
-}
+// No need for AuthRequest interface anymore!
 
 export const authMiddleware = (
-  req: AuthRequest,
+  req: Request, // Change this back to standard Request
   res: Response,
   next: NextFunction,
 ): void => {
   try {
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader) {
-      res.status(401).json({
-        success: false,
-        message: "Authorization header missing",
-      });
-      return;
-    }
-
-    const token = authHeader.split(" ")[1];
+    const token = req.headers.authorization?.split(" ")[1];
 
     if (!token) {
       res.status(401).json({
         success: false,
-        message: "Token missing",
+        message: "Authentication token is missing",
       });
       return;
     }
 
     const decoded = verifyToken(token);
-
     req.user = decoded;
 
     next();

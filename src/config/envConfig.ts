@@ -4,6 +4,6 @@ dotenv.config();
 const config = {
   port: env.PORT,
   databaseUrl: env.DATABASE_URL,
-  jwtSecret: env.jwtSecret as string,
+  jwtSecret: env.JWT_SECRET as string,
 };
 export default config;
