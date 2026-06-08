@@ -6,6 +6,7 @@ import {
   createIssueController,
   getAllIssuesController,
   getIssueByIdController,
+  updateIssueController,
 } from "./issue.controller";
 
 const router = Router();
@@ -14,4 +15,5 @@ router.post("/", authMiddleware, createIssueController);
 router.get("/", getAllIssuesController);
 router.get("/all", getAllIssuesController);
 router.get("/:id", getIssueByIdController);
+router.patch("/:id", authMiddleware, updateIssueController);
 export default router;

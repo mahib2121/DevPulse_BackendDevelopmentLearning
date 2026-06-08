@@ -51,3 +51,26 @@ export const getIssueById = async (id: number) => {
 
   return result.rows[0];
 };
+
+export const updateIssue = async (
+  id: number,
+  title: string,
+  description: string,
+  type: string,
+) => {
+  const result = await pool.query(
+    `
+    UPDATE issues
+    SET
+      title = $1,
+      description = $2,
+      type = $3,
+      updated_at = CURRENT_TIMESTAMP
+    WHERE id = $4
+    RETURNING *
+    `,
+    [title, description, type, id],
+  );
+
+  return result.rows[0];
+};
