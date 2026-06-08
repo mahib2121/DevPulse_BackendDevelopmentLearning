@@ -3,6 +3,7 @@ import type { Request, Response } from "express";
 import { validateIssue } from "./issue.validation";
 import {
   createIssue,
+  deleteIssue,
   getAllIssues,
   getIssueById,
   updateIssue,
@@ -113,6 +114,32 @@ export const updateIssueController = async (req: Request, res: Response) => {
       success: true,
       message: "Issue updated successfully",
       data: issue,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
+export const deleteIssueController = async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+
+    const deletedIssue = await deleteIssue(id);
+
+    if (!deletedIssue) {
+      return res.status(404).json({
+        success: false,
+        message: "Issue not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Issue deleted successfully",
+      data: deletedIssue,
     });
   } catch (error) {
     return res.status(500).json({

@@ -4,6 +4,7 @@ import { authMiddleware } from "../../middleware/auth.middleware";
 
 import {
   createIssueController,
+  deleteIssueController,
   getAllIssuesController,
   getIssueByIdController,
   updateIssueController,
@@ -16,4 +17,6 @@ router.get("/", getAllIssuesController);
 router.get("/all", getAllIssuesController);
 router.get("/:id", getIssueByIdController);
 router.patch("/:id", authMiddleware, updateIssueController);
+router.delete("/:id", authMiddleware, deleteIssueController);
+
 export default router;
