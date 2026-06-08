@@ -1,10 +1,8 @@
 import type { Request, Response, NextFunction } from "express";
 import { verifyToken } from "../config/jwt";
 
-// No need for AuthRequest interface anymore!
-
 export const authMiddleware = (
-  req: Request, // Change this back to standard Request
+  req: Request,
   res: Response,
   next: NextFunction,
 ): void => {

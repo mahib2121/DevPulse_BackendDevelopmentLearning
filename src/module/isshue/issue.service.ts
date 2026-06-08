@@ -39,3 +39,15 @@ export const getAllIssues = async () => {
 
   return result.rows;
 };
+export const getIssueById = async (id: number) => {
+  const result = await pool.query(
+    `
+    SELECT *
+    FROM issues
+    WHERE id = $1
+    `,
+    [id],
+  );
+
+  return result.rows[0];
+};
